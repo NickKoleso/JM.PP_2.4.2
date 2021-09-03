@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User table</title>
+<style>
+    .b1{
+        background: red;
+        color: white;
+        font-size: 9pt;
+    }
+    .b2{
+        background: navy;
+        color: white;
+        font-size: 9pt;
+    }
+</style>
+</head>
+<body>
+<h2>User:</h2>
+<div>Name:</div>
+<div th:text="${user.name}"></div>
+<br>
+<div>Surname:</div>
+<div th:text="${user.surname}"></div>
+<br>
+<div>Age:</div>
+<div th:text="${user.age}"></div>
+<br>
+<div>Email:</div>
+<div th:text="${user.email}"></div>
+<br/>
+<form th:method="DELETE" th:action="@{/users/{id}(id=${user.id})}">
+  <input type="submit" class="b1"  value="Delete">
+</form>
+<br/>
+<form th:method="GET" th:action="@{/users/{id}/edit(id=${user.id})}">
+  <input type="submit" class="b2" value="Edit">
+</form>
+<br/>
+<form th:method="GET" th:action="@{/users}">
+  <input type="submit" th:class="b2" value="Main menu">
+</form>
+</body>
+</html>
