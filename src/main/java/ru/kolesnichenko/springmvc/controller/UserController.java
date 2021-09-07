@@ -11,59 +11,31 @@ import ru.kolesnichenko.springmvc.service.UserService;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/users")
 public class UserController {
     private final UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
+
         this.userService = userService;
     }
 
-    @GetMapping()
+    @GetMapping("/users")
     public String printUsers(Model model) {
         model.addAttribute("user", userService.getUsers());
         return "/users";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/users/{id}")
     public String show(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
         return "/user";
     }
 
-    @GetMapping("/add")
-    public String addUserFrom(Model model) {
-        model.addAttribute("user", new User());
-        return "/add";
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loginPage() {
+        return "/login";
     }
 
-    @PostMapping()
-    public String addUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()){
-            return "/add";
-        }
-        userService.addUser(user);
-        return "redirect:/users";
-    }
-
-    @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable("id") int id) {
-        userService.deleteUserById(id);
-        return "redirect:/users";
-    }
-    @GetMapping("/{id}/edit")
-    public String editUser(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.getUserById(id));
-        return "/edit";
-    }
-    @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, @PathVariable("id") int id) {
-        if(bindingResult.hasErrors()){
-            return "/edit";
-        }
-        userService.updateUser(user);
-        return "redirect:/users";
-    }
 
 }

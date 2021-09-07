@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>User table</title>
-<style>
-    .b1{
-        background: red;
-        color: white;
-        font-size: 9pt;
-    }
-    .b2{
-        background: navy;
-        color: white;
-        font-size: 9pt;
-    }
-</style>
+    <style>
+        .b1 {
+            background: red;
+            color: white;
+            font-size: 9pt;
+        }
+
+        .b2 {
+            background: navy;
+            color: white;
+            font-size: 9pt;
+        }
+    </style>
 </head>
 <body>
 <h2>User:</h2>
@@ -30,16 +31,23 @@
 <div>Email:</div>
 <div th:text="${user.email}"></div>
 <br/>
-<form th:method="DELETE" th:action="@{/users/{id}(id=${user.id})}">
-  <input type="submit" class="b1"  value="Delete">
+<form sec:authorize="hasRole('ROLE_ADMIN')" th:method="DELETE" th:action="@{/admin/{id}(id=${user.id})}">
+    <input type="submit" class="b1" value="Delete">
 </form>
 <br/>
-<form th:method="GET" th:action="@{/users/{id}/edit(id=${user.id})}">
-  <input type="submit" class="b2" value="Edit">
+<form sec:authorize="hasRole('ROLE_ADMIN')" th:method="GET" th:action="@{/admin/{id}/edit(id=${user.id})}">
+    <input type="submit" class="b2" value="Edit">
 </form>
 <br/>
-<form th:method="GET" th:action="@{/users}">
-  <input type="submit" th:class="b2" value="Main menu">
+<form sec:authorize="hasRole('ROLE_ADMIN')" th:method="GET" th:action="@{/admin}">
+    <input type="submit" th:class="b2" value="Main menu">
+</form>
+<br/>
+<form th:method="GET" th:action="@{/logout}">
+    <input type="submit" th:class="b2" value="Logout">
+</form>
+<br/>
+
 </form>
 </body>
 </html>
