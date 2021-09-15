@@ -17,4 +17,6 @@ public interface UserService extends UserDetailsService {
     List<User> getUsers();
 
     User getUserByName(String name);
+
+
 }

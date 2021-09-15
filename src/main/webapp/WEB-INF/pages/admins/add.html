@@ -33,17 +33,22 @@
   <input type="text" th:field="*{password}" id="password"/>
   <br/>
   <label>Role:
-    <select multiple size="2" name="select_role" class="form-control" id="exampleFormControlSelect3">
-      <option th:each="role : ${role}" th:value="${role.getAuthority()}"
-              th:text="${role.getAuthority() == 'ROLE_ADMIN'} ? 'ROLE_ADMIN' : 'ROLE_USER'"></option>
+    <select multiple="multiple" name="role" required="required">
+      <option value="3">ADMIN</option>
+      <option selected value="4">USER</option>
     </select>
     <br/>
-    <input type="submit" class="b2" value="Create"/>
+    <br/>
+    <input type="submit" th:class="b2" value="Create"/>
   </label>
 </form>
 <br>
 <form th:method="GET" th:action="@{/admin}">
   <input type="submit" th:class="b2" value="Main menu">
+</form>
+<br/>
+<form th:method="GET" th:action="@{/logout}">
+  <input type="submit" th:class="b3" value="Logout">
 </form>
 <br/>
 </body>

@@ -10,7 +10,9 @@ import ru.kolesnichenko.springmvc.dao.UserDao;
 import ru.kolesnichenko.springmvc.model.User;
 
 import javax.transaction.TransactionScoped;
+import java.util.ArrayList;
 import java.util.List;
+
 @Component
 public class UserServiceImpl implements UserService {
 
@@ -27,9 +29,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void addUser(User user) {
-
-        userDao.addUser(user);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userDao.addUser(user);
     }
 
     @Override
@@ -43,6 +44,7 @@ public class UserServiceImpl implements UserService {
     public void deleteUserById(int id) {
         userDao.deleteUserById(id);
     }
+
 
     @Override
     @Transactional
@@ -66,7 +68,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = getUserByName(username);
-        if(user == null) {
+        if (user == null) {
             throw new UsernameNotFoundException(String.format("User '%s' not found", username));
         }
         return user;
