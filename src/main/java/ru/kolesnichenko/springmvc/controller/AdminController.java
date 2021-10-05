@@ -46,7 +46,7 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "/admins/add";
         }
-        user.setRoles(role.stream().map((r) -> roleService.getByIdRole(r)).collect(Collectors.toSet()));
+        user.setRoles(roleService.getByIdRoles(role));
         userService.addUser(user);
         return "redirect:/admin";
     }
@@ -70,7 +70,7 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "/admins/edit";
         }
-        user.setRoles(role.stream().map((r) -> roleService.getByIdRole(r)).collect(Collectors.toSet()));
+        user.setRoles(roleService.getByIdRoles(role));
         userService.updateUser(user);
 
         return "redirect:/admin";

@@ -7,6 +7,7 @@ import ru.kolesnichenko.springmvc.dao.RoleDao;
 import ru.kolesnichenko.springmvc.model.Role;
 
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class RoleServiceImpl implements RoleService {
@@ -24,8 +25,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    @Transactional
-    public Role getByIdRole(int id) {
-        return roleDao.getByIdRole(id);
+    public Set<Role> getByIdRoles(List<Integer> ids) {
+        return roleDao.getByIdRoles(ids);
     }
 }

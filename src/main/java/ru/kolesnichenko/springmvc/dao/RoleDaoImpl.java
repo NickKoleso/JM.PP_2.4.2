@@ -6,7 +6,10 @@ import ru.kolesnichenko.springmvc.model.Role;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class RoleDaoImpl implements RoleDao {
@@ -20,7 +23,11 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public Role getByIdRole(int id) {
-        return entityManager.find(Role.class, id);
+    public Set<Role> getByIdRoles(List<Integer> ids) {
+        TypedQuery<Role> query = entityManager.createQuery("select r FROM Role r WHERE r.id in :ids", Role.class);
+        return new HashSet<>(query.setParameter("ids", ids).getResultList());
     }
+
+
+
 }

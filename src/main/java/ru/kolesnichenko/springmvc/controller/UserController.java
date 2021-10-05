@@ -36,6 +36,4 @@ public class UserController {
     public String loginPage() {
         return "/login";
     }
-
-
 }
